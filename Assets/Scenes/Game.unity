@@ -3429,7 +3429,7 @@ MonoBehaviour:
   - O Wins!
   - Draw
   GameResult: {fileID: 1760359792}
-  arrowManager: {fileID: 0}
+  arrowManager: {fileID: 844449179}
 --- !u!4 &1804226869
 Transform:
   m_ObjectHideFlags: 0
