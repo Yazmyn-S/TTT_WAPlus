@@ -1,6 +1,6 @@
 // - - - - - - - - - - - - - - 
 // Title: GridSquareManager
-// Description: Determines what's displayed in each individual grid swuare
+// Description: Determines what's displayed in each individual grid square
 // - - - - - - - - - - - - - - 
 
 using UnityEngine;
@@ -9,7 +9,7 @@ using UnityEngine.EventSystems;
 
 public enum SquareState {empty, x, o};
 
-public class GridSquareManager : MonoBehaviour, IPointerClickHandler
+public class GridSquareManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI xText;
     [SerializeField] private TextMeshProUGUI oText;
@@ -18,11 +18,6 @@ public class GridSquareManager : MonoBehaviour, IPointerClickHandler
     private SquareState currentState = SquareState.empty;
 
     private int squareID;
-
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        GameManager.Instance.ArrowClicked(squareID);
-    }
 
     // Get new state and update square accordingly
     public void SetSquare (SquareState newState)

@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
 
     private Turn curentTurn;
     private GameState currentGameState;
-
+[SerializeField] private ArrowManager arrowManager;
       
   private void Awake()
     {
@@ -76,8 +76,7 @@ public class GameManager : MonoBehaviour
         state = p2;
     }
 
-    bool squareWasSet = gridManager.SetSquare(state, clickedArrow);
-
+bool squareWasSet = arrowManager.PushPiece(state, clickedArrow);
     // Do not change turns if the selected path is full.
     if (!squareWasSet)
     {
