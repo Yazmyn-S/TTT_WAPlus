@@ -2,6 +2,8 @@ using Unity.Multiplayer.Center.Common;
 using Unity.VisualScripting;
 using UnityEngine;
 
+
+//Enums
 public enum Turn {p1, p2};
 public enum GameState {ongoing, draw, p1Win, p2Win};
 
@@ -9,13 +11,17 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     [SerializeField]private GridManager gridManager;
+    
+    [Header("Turn Objects")]
     [SerializeField] private TMPro.TextMeshProUGUI XturnText;
     [SerializeField] private TMPro.TextMeshProUGUI OturnText;
     [SerializeField] private TMPro.TextMeshProUGUI turnText;
 
+    [Header("Result Objects")]
     [SerializeField] private string[] GameResults;
     [SerializeField] private TMPro.TextMeshProUGUI GameResult;
 
+    //Private Variables
     private SquareState p1;
     private SquareState p2;
 
@@ -57,29 +63,42 @@ public class GameManager : MonoBehaviour
     }
 
 //??? 30:00
-    private void ProcessTurn(Turn turn, int square)
-    {   
-        SquareState state = SquareState.empty;
-        if (turn == Turn.p1) state = p1;
-        else state = p2;
+    private void ProcessTurn(Turn turn, int clickedArrow)
+{
+    SquareState state;
 
-        gridManager.SetSquare(state, square);
-         // End Game if winner/draw otherwise continue
-         // Otherwise process the turn
-        bool gameEnded = isEnd();
-        if (!gameEnded) 
-        {
-            curentTurn = (curentTurn == Turn.p1) ? Turn.p2 : Turn.p1;
-            DisplayTurn();
-        }
-        else
-        {
-            GameResult.enabled = true;
-            XturnText.enabled = false;
-            OturnText.enabled = false;
-            turnText.enabled = false;
-        }  
+    if (turn == Turn.p1)
+    {
+        state = p1;
     }
+    else
+    {
+        state = p2;
+    }
+
+    bool squareWasSet = gridManager.SetSquare(state, clickedArrow);
+
+    // Do not change turns if the selected path is full.
+    if (!squareWasSet)
+    {
+        return;
+    }
+
+    bool gameEnded = isEnd();
+
+    if (!gameEnded)
+    {
+        curentTurn = (curentTurn == Turn.p1) ? Turn.p2 : Turn.p1;
+        DisplayTurn();
+    }
+    else
+    {
+        GameResult.enabled = true;
+        XturnText.enabled = false;
+        OturnText.enabled = false;
+        turnText.enabled = false;
+    }
+}
 
     public void DisplayTurn()
     {
@@ -95,19 +114,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void GridSquareClickced(int clickedSquare)
+
+    public void ArrowClicked(int clickedArrow)
+{
+    if (currentGameState != GameState.ongoing)
     {
-        // Do nothing if player clicks a taken square
-        if (gridManager.GetSquareState(clickedSquare) != SquareState.empty)
-        {
-            return;
-        }
-        if (currentGameState != GameState.ongoing)
-        {
-            return;
-        }
-        ProcessTurn(curentTurn, clickedSquare);
+        return;
     }
+
+    ProcessTurn(curentTurn, clickedArrow);
+}
     private bool isEnd()
     {
         bool gridFull = gridManager.isFull();

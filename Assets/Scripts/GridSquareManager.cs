@@ -21,7 +21,7 @@ public class GridSquareManager : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        GameManager.Instance.GridSquareClickced(squareID);
+        GameManager.Instance.ArrowClicked(squareID);
     }
 
     // Get new state and update square accordingly
