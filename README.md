@@ -26,4 +26,4 @@ Dev Log 5: Rebuild the Project (Not all at once, but in chunks)
 Goal: Attempt to rebuild yourself.
 Note: Set a time limit, attempt to rebuild it in that time. Whatever you couldn't do, get assitance and finish the rebuild that way.
 
-Dev Log 6: Repeat
+Dev Log 6: Repeat (https://www.youtube.com/watch?v=YmUnXsOp_t0&t=5s)
